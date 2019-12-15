@@ -10,7 +10,8 @@ python:
   - "nightly"  # nightly build
 # command to install dependencies
 install:
-  - make install
+  - pip install poetry
+  - pip install flake8
 # command to run tests
 script:
-  - pytest
+  - make lint

@@ -6,3 +6,6 @@ build:
 
 publish:
 	poetry publish
+
+lint:
+	flake8 gendiff.py
