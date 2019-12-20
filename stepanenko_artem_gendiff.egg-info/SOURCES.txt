@@ -1,5 +1,0 @@
-stepanenko_artem_gendiff.egg-info/PKG-INFO
-stepanenko_artem_gendiff.egg-info/SOURCES.txt
-stepanenko_artem_gendiff.egg-info/dependency_links.txt
-stepanenko_artem_gendiff.egg-info/entry_points.txt
-stepanenko_artem_gendiff.egg-info/top_level.txt
