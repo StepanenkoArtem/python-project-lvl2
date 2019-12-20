@@ -23,7 +23,7 @@ def common_keys_differense(first_dict, second_dict):
     common_keys = first_dict_keys.intersection(second_dict_keys)
     for key in common_keys:
         if first_dict[key] != second_dict[key]:
-            result = result + "+ {}: {}\n- {}: {}\n".format(
+            result = result + "    + {}: {}\n    - {}: {}\n".format(
                 key, first_dict[key],
                 key, second_dict[key],
             )
@@ -36,12 +36,12 @@ def get_difference_between(first_dict, second_dict):
     second_dict_keys = set(get_keys(second_dict))
     different_keys = first_dict_keys.difference(second_dict_keys)
     for key in different_keys:
-        result = result + "- {}: {}\n".format(
+        result = result + "    - {}: {}\n".format(
             key, first_dict[key]
         )
     different_keys = second_dict_keys.difference(first_dict_keys)
     for key in different_keys:
-        result = result + "+ {}: {}\n".format(
+        result = result + "    + {}: {}\n".format(
             key, second_dict[key]
         )
     return result
