@@ -1,0 +1,5 @@
+gendiff.egg-info/PKG-INFO
+gendiff.egg-info/SOURCES.txt
+gendiff.egg-info/dependency_links.txt
+gendiff.egg-info/entry_points.txt
+gendiff.egg-info/top_level.txt

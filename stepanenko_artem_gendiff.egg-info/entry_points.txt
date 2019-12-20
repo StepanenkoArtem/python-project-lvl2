@@ -1,0 +1,3 @@
+[console_scripts]
+poetry = gendiff.scripts.gendiff:main
+

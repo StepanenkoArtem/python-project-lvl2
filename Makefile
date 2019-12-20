@@ -9,3 +9,6 @@ publish:
 
 lint:
 	flake8 gendiff.py
+
+bump:
+	poetry version patch
