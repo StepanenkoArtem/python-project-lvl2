@@ -7,10 +7,6 @@ parser = argparse.ArgumentParser(
     description='Generate difference between two files'
 )
 
-def get_abspath(path):
-    return os.path.abspath(path)
-
-
 
 def get_keys(dictionary):
     return set(dictionary.keys())
@@ -22,8 +18,8 @@ def append_to_result(key, value, sign=" "):
 
 def generate_diff(before_file, after_file):
     diff = ""
-    before_file = open(get_abspath(before_file))
-    after_file = open(get_abspath(after_file))
+    before_file = open(os.path.abspath(before_file))
+    after_file = open(os.path.abspath(after_file))
     before = json.load(before_file)
     after = json.load(after_file)
     before_keys = get_keys(before)
