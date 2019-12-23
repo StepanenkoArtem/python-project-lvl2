@@ -6,6 +6,7 @@ test
 /*.egg-info
 *__pycache__
 /.pytest*
+*.pyc
 
 
 
