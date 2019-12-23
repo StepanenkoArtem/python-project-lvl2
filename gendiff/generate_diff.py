@@ -22,8 +22,10 @@ def append_to_result(key, value, sign=" "):
 
 def generate_diff(before_file, after_file):
     diff = ""
-    before = json.load(open(get_abspath(before_file)))
-    after = json.load(open(get_abspath(after_file)))
+    before_file = open(get_abspath(before_file))
+    after_file = open(get_abspath(after_file))
+    before = json.load(before_file)
+    after = json.load(after_file)
     before_keys = get_keys(before)
     after_keys = get_keys(after)
     all_keys = before_keys.union(after_keys)
