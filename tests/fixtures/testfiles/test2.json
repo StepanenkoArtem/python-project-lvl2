@@ -1,0 +1,19 @@
+{
+	"test": "test",
+	"unique_start": "1516966548.648839",
+        "flat_on_stage_id": 33,
+        "flat_status_id": 4,
+        "retry_count": 3,
+        "time_start": "2017-01-26 15:51:18",
+        "duration": 70,
+        "gps_start": "GPS",
+        "gps_end": "GPS",
+        "audio_info": "35",
+        "photo_flat": "ph_1516966548_fl_hRd8dpz",
+	"argessive": 0,
+        "registration": 1,
+        "take_apm": 0,
+        "request": 1,
+        "live_in_flat": 3,
+        "first_vote": 1
+}
