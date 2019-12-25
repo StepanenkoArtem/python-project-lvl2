@@ -12,3 +12,6 @@ lint:
 
 bump:
 	poetry version patch
+
+test:
+	python -m pytest

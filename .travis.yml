@@ -12,6 +12,8 @@ python:
 install:
   - pip install poetry
   - pip install flake8
+  - pip install pytest
 # command to run tests
 script:
   - make lint
+  - make test
