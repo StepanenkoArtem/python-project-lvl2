@@ -1,5 +1,6 @@
 env:
-  - HOME=/home/chief
+  global:
+    - HOME=/home/chief
 language: python
 python:
   - "2.7"
