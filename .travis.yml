@@ -1,6 +1,6 @@
 language: python
 env:
-	HOME = /home/chief
+  - HOME = /home/chief
 python:
   - "2.7"
   - "3.4"
