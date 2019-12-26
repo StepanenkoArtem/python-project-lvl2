@@ -13,7 +13,8 @@ def test_generate_diff():
 
 def test_get_path():
     control_path = os.path.expanduser(
-        "~/pyprojects/python-project-lvl2/tests/fixtures/testfiles/test2.json")
+        "/home/chief/pyprojects/python-project-lvl2/tests/fixtures/testfiles"
+        "/test2.json")
     paths = open(
         os.path.join(os.getcwd(), "tests/fixtures/paths.txt"), 'r'
     )
