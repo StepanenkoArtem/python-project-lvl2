@@ -13,7 +13,9 @@ install:
   - pip install poetry
   - pip install flake8
   - pip install pytest
+  - pip install pytest-cov
 # command to run tests
 script:
   - make lint
   - make test
+  - make cov-test

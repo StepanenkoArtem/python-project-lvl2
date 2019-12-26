@@ -7,6 +7,6 @@ test
 *__pycache__
 /.pytest*
 *.pyc
-
+.coverage
 
 
