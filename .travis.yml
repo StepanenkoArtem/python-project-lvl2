@@ -29,4 +29,4 @@ script:
   - make test
   - make cov-test
 after_script:
-  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT format-coverage -o upload-coverage -i --id CC_TEST_REPORTER_ID
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT format-coverage -o - upload-coverage -i --id CC_TEST_REPORTER_ID
