@@ -1,0 +1,3 @@
+~/pyprojects/python-project-lvl2/tests/fixtures/testfiles/test2.json
+/home/chief/pyprojects/python-project-lvl2/tests/fixtures/testfiles/test2.json
+tests/fixtures/testfiles/test2.json
