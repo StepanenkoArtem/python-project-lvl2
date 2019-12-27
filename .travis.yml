@@ -1,7 +1,7 @@
 env:
   global:
-    CC_TEST_REPORTER_ID=97a3a93eebbf0bca588722d6d67809a1bdf1c7f142cd0070a5e33dd79aeb6d94
-  
+  - CC_TEST_REPORTER_ID=97a3a93eebbf0bca588722d6d67809a1bdf1c7f142cd0070a5e33dd79aeb6d94
+
 language: python
 python:
   - "2.7"
