@@ -29,4 +29,4 @@ script:
   - make test
   - make cov-test
 after_script:
-  - ./cc-test-reporter after-build format-coverage -t coverage.py  upload-coverage --id CC_TEST_REPORTER_ID -i coverage/codeclimate.json.
+  - ./cc-test-reporter after-build format-coverage coverage.xml -t coverage.py upload-coverage --id CC_TEST_REPORTER_ID -i coverage/codeclimate.json.
