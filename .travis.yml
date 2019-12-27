@@ -26,4 +26,4 @@ script:
   - make cov-test
 after_script:
   - ./cc-test-reporter after-build format-coverage coverage.xml -t coverage.py
-  - ./cc-test-reportet after-build upload-coverage
+  - ./cc-test-reporter after-build upload-coverage
