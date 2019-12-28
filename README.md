@@ -5,3 +5,6 @@
 
 Task #3 asciinema
 [![asciicast](https://asciinema.org/a/jP61fqMfyvGu41U94g9mCRRZs.svg)](https://asciinema.org/a/jP61fqMfyvGu41U94g9mCRRZs)
+
+Task #5 asciinema
+[![asciicast](https://asciinema.org/a/ij4snZT9yj71XmpsMVT6hgQc8.svg)](https://asciinema.org/a/ij4snZT9yj71XmpsMVT6hgQc8)
