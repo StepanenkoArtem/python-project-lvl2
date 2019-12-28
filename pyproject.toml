@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "stepanenko-artem-gendiff"
-version = "0.1.30"
+version = "0.1.32"
 description = "CLI-utilite for generate difference between two config files"
 authors = ["Artem Stepanenko <artem.stepanenko.ks.ua@gmail.com>"]
 packages = [
@@ -9,8 +9,10 @@ packages = [
 
 [tool.poetry.dependencies]
 python = "^3.5"
-
+flake8 = "^3.7.9"
+pyyaml = "^5.2"
 [tool.poetry.dev-dependencies]
+flake8 = "^3.7"
 
 [tool.poetry.scripts]
 gendiff = 'gendiff.scripts.gendiff:main'

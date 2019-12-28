@@ -17,4 +17,7 @@ test:
 	poetry run python -m pytest
 
 cov-test:
+	poetry run python -m pytest --cov=gendiff tests/
+
+cov_test2xml:
 	poetry run python -m pytest --cov=gendiff tests/ --cov-report=xml

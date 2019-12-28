@@ -8,5 +8,8 @@ test
 /.pytest*
 *.pyc
 .coverage
+/coverage
+cc-test-reporter
+
 
 
