@@ -3,21 +3,20 @@ import json
 import yaml
 
 
-def get_path(path):
+def _get_path(path):
     if "~" in path:
         path = os.path.expanduser(path)
     path = os.path.abspath(os.path.normpath(path))
     return path
 
 
-def get_extension(path):
-    basename = os.path.basename(path)
+def _get_extension(file):
+    basename = os.path.basename(file)
     return basename.split('.')[-1:][0]
 
 
-def parse(file):
-    path = get_path(file)
-    if get_extension(path) == 'json':
-        return json.load(open(path))
-    elif get_extension(path) == 'yml':
+def get_data_from(file):
+    path = _get_path(file)
+    if _get_extension(path) == 'yml':
         return yaml.safe_load(open(path))
+    return json.load(open(path))

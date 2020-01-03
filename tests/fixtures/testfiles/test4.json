@@ -1,0 +1,26 @@
+{
+  "first_name" : "Artem",
+  "last_name" : "Stepanenko",
+  "age": 32,
+  "e-mail": "artem.stepanenko.ks.ua@gmail.com",
+  "websites" : [
+    {
+      "description" : "work",
+      "URL" : "https://www.heroku.com/"
+    },
+    {
+      "description" : "books",
+      "URL" : "https://google.books.com/clean_code.pdf",
+      "account" :
+      {
+        "login": "mark@stepanenko.ks.ua",
+        "pass": "password2"
+      }
+    }
+  ],
+  "email-account": {
+    "address" : "artem@stepanenko.ks.ua",
+    "port" : 993,
+    "password" : "4568"
+  }
+}

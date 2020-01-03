@@ -1,5 +1,6 @@
 import argparse
 import gendiff.parsers as parsers
+import json
 
 
 parser = argparse.ArgumentParser(
@@ -11,26 +12,29 @@ def get_keys(dictionary):
     return set(dictionary.keys())
 
 
-def append_to_result(key, value, sign=" "):
-    return '{sign} {key}: {value}\n'.format(sign=sign, key=key, value=value)
+def make_diff(before, after):
+    diff = {}
+    aggregate_keys = set(before.keys()).union(after.keys())
+    for key in aggregate_keys:
+        if (
+                isinstance(before.get(key), dict) &
+                isinstance(after.get(key), dict)
+        ):
+            diff[key] = (make_diff(before.get(key), after.get(key)))
+        else:
+            diff.update({key: dict(
+            before_value=before.get(key, 'None'),
+            after_value=after.get(key, 'None')
+        )})
+    return diff
+
+
+def render_diff():
+    pass
 
 
 def generate_diff(before_file, after_file):
-    diff = ""
-    before = parsers.parse(before_file)
-    after = parsers.parse(after_file)
-    before_keys = get_keys(before)
-    after_keys = get_keys(after)
-    all_keys = before_keys.union(after_keys)
-    for key in all_keys:
-        if key in before_keys and key in after_keys:
-            if before[key] == after[key]:
-                diff = diff + append_to_result(key, before[key])
-            else:
-                diff = diff + append_to_result(key, before[key], sign='-')
-                diff = diff + append_to_result(key, after[key], sign='+')
-        elif key in before_keys and key not in after_keys:
-            diff = diff + append_to_result(key, before[key], sign='-')
-        elif key not in before_keys and key in after_keys:
-            diff = diff + append_to_result(key, after[key], sign='+')
+    before = parsers.get_data_from(before_file)
+    after = parsers.get_data_from(after_file)
+    diff = make_diff(before, after)
     return diff

@@ -1,0 +1,21 @@
+{
+  "first_name" : "Sammy",
+  "last_name" : "Shark",
+  "age": 32,
+  "phone" : "+380663254548",
+  "websites" : [
+    {
+      "description" : "work",
+      "URL" : "https://www.digitalocean.com/"
+    },
+    {
+      "description" : "tutorials",
+      "URL" : "https://www.digitalocean.com/community/tutorials"
+    }
+  ],
+  "email-account": {
+    "address" : "artem@stepanenko.ks.ua",
+    "port" : 993,
+    "password" : "34656"
+  }
+}
