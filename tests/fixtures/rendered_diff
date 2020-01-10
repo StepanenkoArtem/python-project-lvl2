@@ -1,0 +1,15 @@
+{
+    age: 32,
+  + e-mail: artem.stepanenko.ks.ua@gmail.com
+    email-account: {
+        address: artem@stepanenko.ks.ua
+        port: 993
+      - password: 34656
+      + password: 4568
+        }
+  - first_name: Sammy
+  + first_name: Artem
+  - last_name: Shark
+  + last_name: Stepanenko
+  - phone: +380663254548
+}
