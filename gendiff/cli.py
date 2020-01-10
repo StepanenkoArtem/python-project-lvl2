@@ -1,25 +1,15 @@
-def render_yaml(diff):
-    return diff
+import json
 
 
-def is_key_added(key):
-    return (key[0] is None) & bool(key[1])
+def json_formatter(renderer):
+    def wrapper(inner_diff):
+        print("A\n")
+        print(renderer(inner_diff))
+        print("\nB")
+    return wrapper
 
 
-def is_key_deleted(key):
-    return (key[1] is None) & bool(key[0])
-
-
-def is_key_changed(key):
-    return key[0] != key[1]
-
-
-def render_json(diff):
-    result = ""
-    return result
-
-
-def render(diff, view):
-    if view == 'yaml':
-        return render_yaml(diff)
-    return print(render_json(diff))
+@json_formatter
+def render(diff):
+    s = json.dumps(diff, indent=4, sort_keys=True)
+    return s

@@ -13,7 +13,7 @@ def get_keys(dictionary):
 
 def recognize_del_items(before_data, after_data):
     deleted_items = {}
-    deleted_keys = set(before_data.keys()).difference(after_data)
+    deleted_keys = before_data.keys() - after_data.keys()
     for key in deleted_keys:
         deleted_items.update({key: {"deleted": before_data[key]}})
     return deleted_items
@@ -21,7 +21,7 @@ def recognize_del_items(before_data, after_data):
 
 def recognize_add_items(before_data, after_data):
     added_items = {}
-    added_keys = set(after_data.keys()).difference(before_data)
+    added_keys = after_data.keys() - before_data.keys()
     for key in added_keys:
         added_items.update({key: {"added": after_data[key]}})
     return added_items

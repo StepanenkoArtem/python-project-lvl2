@@ -8,8 +8,7 @@ def main():
     parser.add_argument('-f', '--format', default='json')
     option = parser.parse_args()
     cli.render(
-        generate_diff(option.first_file, option.second_file),
-        option.format
+        generate_diff(option.first_file, option.second_file)
     )
 
 
