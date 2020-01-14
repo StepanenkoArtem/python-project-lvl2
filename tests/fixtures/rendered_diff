@@ -1,11 +1,11 @@
 {
-    age: 32,
+    age: 32
   + e-mail: artem.stepanenko.ks.ua@gmail.com
     email-account: {
         address: artem@stepanenko.ks.ua
-        port: 993
       - password: 34656
       + password: 4568
+        port: 993
         }
   - first_name: Sammy
   + first_name: Artem

@@ -1,14 +1,28 @@
 from gendiff.generate_diff import generate_diff
 import gendiff.parsers as parser
 from gendiff.cli import render
-import os, json
+import os
 
 
 def test_generate_diff():
+    """
     expected_file = open(
         os.path.join(os.getcwd(), "tests/fixtures/internal_diff"), 'r'
     )
     expected_data = json.load(expected_file)
+    """
+    expected_data = {
+        "first_name": ("Sammy", "Artem"),
+        "last_name": ("Shark", "Stepanenko"),
+        "age": 32,
+        "e-mail": (None, "artem.stepanenko.ks.ua@gmail.com"),
+        "phone": ("+380663254548", None),
+        "email-account": {
+            "address": "artem@stepanenko.ks.ua",
+            "port": 993,
+            "password": ("34656", "4568")
+        }
+    }
     checking_data = generate_diff(
         'tests/fixtures/testfiles/test3.json',
         'tests/fixtures/testfiles/test4.json')
@@ -31,6 +45,5 @@ def test_render_json():
     )
     checking_data = render(generate_diff(
         'tests/fixtures/testfiles/test3.json',
-        'tests/fixtures/testfiles/test4.json'), "json")
+        'tests/fixtures/testfiles/test4.json'))
     assert "".join(expected) == checking_data
-
