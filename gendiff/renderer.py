@@ -1,3 +1,4 @@
+
 INDENT = 4
 TAMPLATE = '{token:>{indent}} {key}: {value}'
 
@@ -16,21 +17,21 @@ def make_result(diff, indent=INDENT):
 
     for key in sorted(diff):
         if isinstance(diff[key], dict):
-            result.append(
+            result.extend([
                 add_line(key, make_result(diff[key], indent=indent + indent))
-            )
+            ])
         elif isinstance(diff[key], tuple):
             if diff[key][0]:
                 result.append(add_line(key, diff[key][0], token="-"))
             if diff[key][1]:
                 result.append(add_line(key, diff[key][1], token="+"))
         else:
-            result.append(add_line(key, diff[key]))
+            result.append(add_line(key, make_result(diff[key])))
     result.append("\n{0:>{indent}}".format("", indent=indent*2-INDENT*2))
     result.append("}")
     return "".join(result)
 
 
-def render(diff):
-    print(make_result(diff))
-    return make_result(diff)
+def render(diff, output_format):
+    print(output_format)
+    return None
