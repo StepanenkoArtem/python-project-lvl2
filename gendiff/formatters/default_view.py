@@ -1,13 +1,17 @@
 INITIAL_INDENT = 0
 DEFAULT_INDENT = 4
-FILLER = " "
+FILLER = ' '
 TAMPLATE = '{}{}: {}\n'.format
 BACKSHIFT = 2
 
 
 def generate_view(data, indent=INITIAL_INDENT):
     def sign(char=" "):
-        return (shift-BACKSHIFT) * FILLER + char + FILLER
+        return '{}{}{}'.format(
+            (shift-BACKSHIFT) * FILLER,
+            char,
+            FILLER
+        )
 
     def child():
         return TAMPLATE(
