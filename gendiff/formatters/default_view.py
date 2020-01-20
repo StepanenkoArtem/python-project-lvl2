@@ -2,11 +2,12 @@ INITIAL_INDENT = 0
 DEFAULT_INDENT = 4
 FILLER = " "
 TAMPLATE = '{}{}: {}\n'.format
+BACKSHIFT = 2
 
 
 def generate_view(data, indent=INITIAL_INDENT):
     def sign(char=" "):
-        return "{}{}{}".format((shift-2) * FILLER, char, FILLER)
+        return (shift-BACKSHIFT) * FILLER + char + FILLER
 
     def child():
         return TAMPLATE(
@@ -34,12 +35,9 @@ def generate_view(data, indent=INITIAL_INDENT):
 
     lines = ["{\n"]
     for key, value in sorted(data.items()):
-        if str(value) == 'True':
-            value = 'true'
-        if str(value) == 'False':
-            value = 'false'
-        if str(value) == 'None':
-            value = 'null'
+        value = 'true' if str(value) == 'True' else value
+        value = 'false' if str(value) == 'false' else value
+        value = 'null' if str(value) == 'None' else value
         shift = indent + DEFAULT_INDENT
         if isinstance(value, dict):
             lines.append(
