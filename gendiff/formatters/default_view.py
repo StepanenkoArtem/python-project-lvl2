@@ -72,4 +72,4 @@ def generate_view(data, indent=INITIAL_INDENT):
 
 
 def render(internal_diff):
-    print(generate_view(internal_diff))
+    return generate_view(internal_diff)

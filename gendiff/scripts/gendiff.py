@@ -10,7 +10,7 @@ def main():
 
     internal_diff = generate_diff(option.first_file, option.second_file)
     render = get_formatter(option.format)
-    render(internal_diff)
+    print(render(internal_diff))
 
 
 if __name__ == '__main__':
