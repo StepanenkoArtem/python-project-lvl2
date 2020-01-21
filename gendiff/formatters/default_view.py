@@ -6,11 +6,11 @@ BACKSHIFT = 2
 
 
 def generate_view(data, indent=INITIAL_INDENT):
-    def set_sign(char=" "):
-        return '{}{}{}'.format(
-            (shift-BACKSHIFT) * FILLER,
-            char,
-            FILLER
+    def set_sign(sign=" "):
+        return '{pre_space}{sign}{post_space}'.format(
+            pre_space=(shift-BACKSHIFT) * FILLER,
+            sign=sign,
+            post_space=FILLER
         )
 
     def get_child():
