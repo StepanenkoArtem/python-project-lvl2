@@ -7,10 +7,6 @@ parser = argparse.ArgumentParser(
 )
 
 
-def get_keys(dictionary):
-    return set(dictionary.keys())
-
-
 def recognize_del_items(before_data, after_data):
     deleted_items = {}
     deleted_keys = before_data.keys() - after_data.keys()
@@ -37,7 +33,7 @@ def recognize_changed_items(before_data, after_data):
         ):
             changed.update(
                 {
-                    key: build_inner_diff(
+                    key: build_internal_diff(
                         before_data[key],
                         after_data[key]
                     )
@@ -57,18 +53,18 @@ def recognize_changed_items(before_data, after_data):
     return changed
 
 
-def build_inner_diff(before_data, after_data):
-    inner_diff = {}
+def build_internal_diff(before_data, after_data):
+    internal_diff = {}
     deleted_items = recognize_del_items(before_data, after_data)
     added_items = recognize_add_items(before_data, after_data)
     changed_items = recognize_changed_items(before_data, after_data)
-    inner_diff.update(deleted_items)
-    inner_diff.update(added_items)
-    inner_diff.update(changed_items)
-    return inner_diff
+    internal_diff.update(deleted_items)
+    internal_diff.update(added_items)
+    internal_diff.update(changed_items)
+    return internal_diff
 
 
 def generate_diff(before_file, after_file):
     before_file_data = parsers.get_data_from(before_file)
     after_file_data = parsers.get_data_from(after_file)
-    return build_inner_diff(before_file_data, after_file_data)
+    return build_internal_diff(before_file_data, after_file_data)

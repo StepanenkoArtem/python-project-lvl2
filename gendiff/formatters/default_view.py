@@ -6,36 +6,36 @@ BACKSHIFT = 2
 
 
 def generate_view(data, indent=INITIAL_INDENT):
-    def sign(char=" "):
+    def set_sign(char=" "):
         return '{}{}{}'.format(
             (shift-BACKSHIFT) * FILLER,
             char,
             FILLER
         )
 
-    def child():
+    def get_child():
         return TAMPLATE(
-            sign(), key, generate_view(value, shift))
+            set_sign(), key, generate_view(value, shift))
 
-    def removed():
+    def get_removed_item():
         return TAMPLATE(
-            sign("-"), key, value[0])
+            set_sign("-"), key, value[0])
 
-    def removed_child():
+    def get_removed_child():
         return TAMPLATE(
-            sign("-"), key, generate_view(value[0], shift))
+            set_sign("-"), key, generate_view(value[0], shift))
 
-    def added():
+    def get_added_item():
         return TAMPLATE(
-            sign("+"), key, value[1])
+            set_sign("+"), key, value[1])
 
-    def added_child():
+    def get_added_child():
         return TAMPLATE(
-            sign("+"), key, generate_view(value[1], shift))
+            set_sign("+"), key, generate_view(value[1], shift))
 
-    def unchanged():
+    def get_unchanged_item():
         return TAMPLATE(
-            sign(), key, value)
+            set_sign(), key, value)
 
     lines = ["{\n"]
     for key, value in sorted(data.items()):
@@ -44,31 +44,20 @@ def generate_view(data, indent=INITIAL_INDENT):
         value = 'null' if str(value) == 'None' else value
         shift = indent + DEFAULT_INDENT
         if isinstance(value, dict):
-            lines.append(
-                child()
-            )
+            lines.append(get_child())
         elif isinstance(value, tuple):
             if value[0]:
                 if isinstance(value[0], dict):
-                    lines.append(
-                        removed_child()
-                    )
+                    lines.append(get_removed_child())
                 else:
-                    lines.append(
-                        removed()
-                    )
+                    lines.append(get_removed_item())
             if value[1]:
                 if isinstance(value[1], dict):
-                    lines.append(
-                        added_child()
-                    )
+                    lines.append(get_added_child())
                 else:
-                    lines.append(
-                        added()
-                    )
+                    lines.append(get_added_item())
         else:
-            lines.append(
-                unchanged())
+            lines.append(get_unchanged_item())
     lines.append("{}{}".format(indent * FILLER, "}"))
     return "".join(lines)
 

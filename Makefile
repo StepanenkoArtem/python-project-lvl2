@@ -14,7 +14,7 @@ bump:
 	poetry version patch
 
 test:
-	poetry run python -m pytest
+	poetry run python -m pytest -vv
 
 cov-test:
 	poetry run python -m pytest --cov=gendiff tests/
