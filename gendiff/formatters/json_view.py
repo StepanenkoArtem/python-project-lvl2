@@ -16,8 +16,6 @@ UNC = "unchanged"
 def generate_view(data):
     result = {}
     for key, value in sorted(data.items()):
-        if isinstance(value, str) and value.isnumeric():
-            value = int(value)
         if isinstance(value, dict):
             result.update({key: generate_view(value)})
         elif isinstance(value, tuple):
