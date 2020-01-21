@@ -7,33 +7,33 @@ BACKSHIFT = 2
 
 def generate_view(data, indent=INITIAL_INDENT):
     def set_sign(sign=" "):
-        return '{pre_space}{sign}{post_space}'.format(
-            pre_space=(shift-BACKSHIFT) * FILLER,
-            sign=sign,
-            post_space=FILLER
+        return ''.join([
+            (shift-BACKSHIFT) * FILLER,
+            sign,
+            FILLER]
         )
 
     def get_child():
         return TAMPLATE(
             set_sign(), key, generate_view(value, shift))
 
-    def get_removed_item():
+    def set_removed_item():
         return TAMPLATE(
             set_sign("-"), key, value[0])
 
-    def get_removed_child():
+    def set_removed_child():
         return TAMPLATE(
             set_sign("-"), key, generate_view(value[0], shift))
 
-    def get_added_item():
+    def set_added_item():
         return TAMPLATE(
             set_sign("+"), key, value[1])
 
-    def get_added_child():
+    def set_added_child():
         return TAMPLATE(
             set_sign("+"), key, generate_view(value[1], shift))
 
-    def get_unchanged_item():
+    def set_unchanged_item():
         return TAMPLATE(
             set_sign(), key, value)
 
@@ -48,16 +48,16 @@ def generate_view(data, indent=INITIAL_INDENT):
         elif isinstance(value, tuple):
             if value[0]:
                 if isinstance(value[0], dict):
-                    lines.append(get_removed_child())
+                    lines.append(set_removed_child())
                 else:
-                    lines.append(get_removed_item())
+                    lines.append(set_removed_item())
             if value[1]:
                 if isinstance(value[1], dict):
-                    lines.append(get_added_child())
+                    lines.append(set_added_child())
                 else:
-                    lines.append(get_added_item())
+                    lines.append(set_added_item())
         else:
-            lines.append(get_unchanged_item())
+            lines.append(set_unchanged_item())
     lines.append("{}{}".format(indent * FILLER, "}"))
     return "".join(lines)
 
