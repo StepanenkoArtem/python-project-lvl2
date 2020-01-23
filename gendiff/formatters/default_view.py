@@ -31,59 +31,64 @@ def generate_view(data, indent=INITIAL_INDENT):
         elif isinstance(value, tuple):
             if value[0] == 'removed':
                 if isinstance(value[1], dict):
-                    lines.append(
-                        TAMPLATE(
-                            set_sign("-"),
-                            key,
-                            generate_view(value[1], shift)
-                        )
+                    lines.append(TAMPLATE(
+                        set_sign("-"),
+                        key,
+                        generate_view(value[1], shift))
                     )
                 else:
-                    lines.append(
-                        TAMPLATE(
-                            set_sign("-"),
-                            key,
-                            convert_to_json_style(value[1]))
+                    lines.append(TAMPLATE(
+                        set_sign("-"),
+                        key,
+                        convert_to_json_style(value[1]))
                     )
             if value[0] == 'added':
                 if isinstance(value[1], dict):
-                    lines.append(
-                        TAMPLATE(
-                            set_sign("+"),
-                            key,
-                            generate_view(value[1], shift)
+                    lines.append(TAMPLATE(
+                        set_sign("+"),
+                        key,
+                        generate_view(value[1], shift)
                         )
                     )
                 else:
-                    lines.append(
-                        TAMPLATE(
-                            set_sign("+"),
-                            key,
-                            convert_to_json_style(value[1]))
+                    lines.append(TAMPLATE(
+                        set_sign("+"),
+                        key,
+                        convert_to_json_style(value[1]))
                     )
             if value[0] == 'modified':
-                if isinstance(value[1], dict):
+                if isinstance(value[1][0], dict):
+                    lines.append(TAMPLATE(
+                        set_sign("-"),
+                        key,
+                        generate_view(value[1][0], shift))
+                    )
+                else:
                     lines.append(
                         TAMPLATE(
-                            set_sign("+"),
+                            set_sign("-"),
                             key,
-                            generate_view(value[1], shift)
-                        )
+                            convert_to_json_style(value[1][0]))
+                    )
+                if isinstance(value[1][1], dict):
+                    lines.append(TAMPLATE(
+                        set_sign("+"),
+                        key,
+                        generate_view(value[1][1], shift))
                     )
                 else:
                     lines.append(
                         TAMPLATE(
                             set_sign("+"),
                             key,
-                            convert_to_json_style(value[1]))
+                            convert_to_json_style(value[1][1]))
                     )
         else:
-            lines.append(
-                TAMPLATE(
-                    set_sign(),
-                    key,
-                    convert_to_json_style(value))
-            )
+            lines.append(TAMPLATE(
+                set_sign(),
+                key,
+                convert_to_json_style(value))
+        )
     lines.append("{}{}".format(indent * FILLER, "}"))
     return "".join(lines)
 

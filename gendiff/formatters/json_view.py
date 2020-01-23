@@ -4,17 +4,17 @@ def generate_view(data):
         if isinstance(value, dict):
             result.update({key: generate_view(value)})
         elif isinstance(value, tuple):
-            if value[0] and value[1]:
+            if value[0] == 'modified':
                 result.update(
                     {
                         key: {
                             "status": "modified",
-                            "removed value": value[0],
-                            "added value": value[1]
+                            "removed value": value[1][0],
+                            "added value": value[1][1]
                         }
                     }
                 )
-            if not value[0]:
+            if value[0] == 'added':
                 result.update(
                     {
                         key: {
@@ -23,12 +23,12 @@ def generate_view(data):
                         }
                     }
                 )
-            if not value[1]:
+            if value[0] == 'removed':
                 result.update(
                     {
                         key: {
                             "status": "removed",
-                            "value": value[0]
+                            "value": value[1]
                         }
                     }
                 )
