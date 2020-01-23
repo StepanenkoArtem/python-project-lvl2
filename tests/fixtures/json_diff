@@ -1,5 +1,21 @@
 {
     "common": {
+        "add_null": {
+          "status": "added",
+          "value": null
+        },
+        "add_zero": {
+          "status": "added",
+          "value": 0
+        },
+        "test_null": {
+          "status": "removed",
+          "value": null
+        },
+        "test_zero" : {
+          "status": "removed",
+          "value" : 0
+        },
         "setting1": {
           "status": "unchanged",
           "value" : "Value 1"

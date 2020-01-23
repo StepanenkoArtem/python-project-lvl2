@@ -1,5 +1,7 @@
 {
   "common": {
+    "test_null": null,
+    "test_zero": 0,
     "setting1": "Value 1",
     "setting2": 200,
     "setting3": true,

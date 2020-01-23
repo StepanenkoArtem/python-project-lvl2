@@ -15,9 +15,9 @@ def generate_view():
             if isinstance(value, dict):
                 inner(value)
             elif isinstance(value, tuple):
-                if not value[1]:
+                if value[0]:
                     result.append(REMOVED(prop=".".join(path)))
-                if not value[0]:
+                if value[1]:
                     if isinstance(value[1], dict):
                         result.append(ADDED(prop=".".join(path),
                                             value="complex value"))

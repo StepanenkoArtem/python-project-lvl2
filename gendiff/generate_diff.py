@@ -11,7 +11,7 @@ def recognize_del_items(before_data, after_data):
     deleted_items = {}
     deleted_keys = before_data.keys() - after_data.keys()
     for key in deleted_keys:
-        deleted_items.update({key: (before_data[key], None)})
+        deleted_items.update({key: ('removed', before_data[key])})
     return deleted_items
 
 
@@ -19,7 +19,7 @@ def recognize_add_items(before_data, after_data):
     added_items = {}
     added_keys = after_data.keys() - before_data.keys()
     for key in added_keys:
-        added_items.update({key: (None, after_data[key])})
+        added_items.update({key: ('added', after_data[key])})
     return added_items
 
 
@@ -44,9 +44,10 @@ def recognize_changed_items(before_data, after_data):
         else:
             changed.update(
                 {
-                    key: (
+                    key: ('modified', [
                         before_data[key],
-                        after_data[key],
+                        after_data[key]
+                          ]
                     )
                 }
             )

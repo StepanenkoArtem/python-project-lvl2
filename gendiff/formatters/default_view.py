@@ -5,59 +5,85 @@ TAMPLATE = '{}{}: {}\n'.format
 BACKSHIFT = 2
 
 
+def convert_to_json_style(value):
+    value = 'true' if str(value) == 'True' else value
+    value = 'false' if str(value) == 'False' else value
+    value = 'null' if str(value) == 'None' else value
+    return value
+
+
 def generate_view(data, indent=INITIAL_INDENT):
+
     def set_sign(sign=" "):
         return ''.join([
-            (shift-BACKSHIFT) * FILLER,
+            (shift - BACKSHIFT) * FILLER,
             sign,
             FILLER]
         )
-
-    def get_child():
-        return TAMPLATE(
-            set_sign(), key, generate_view(value, shift))
-
-    def set_removed_item():
-        return TAMPLATE(
-            set_sign("-"), key, value[0])
-
-    def set_removed_child():
-        return TAMPLATE(
-            set_sign("-"), key, generate_view(value[0], shift))
-
-    def set_added_item():
-        return TAMPLATE(
-            set_sign("+"), key, value[1])
-
-    def set_added_child():
-        return TAMPLATE(
-            set_sign("+"), key, generate_view(value[1], shift))
-
-    def set_unchanged_item():
-        return TAMPLATE(
-            set_sign(), key, value)
-
     lines = ["{\n"]
     for key, value in sorted(data.items()):
-        value = 'true' if str(value) == 'True' else value
-        value = 'false' if str(value) == 'false' else value
-        value = 'null' if str(value) == 'None' else value
         shift = indent + DEFAULT_INDENT
         if isinstance(value, dict):
-            lines.append(get_child())
+            lines.append(
+                TAMPLATE(
+                    set_sign(), key, generate_view(value, shift))
+            )
         elif isinstance(value, tuple):
-            if value[0]:
-                if isinstance(value[0], dict):
-                    lines.append(set_removed_child())
-                else:
-                    lines.append(set_removed_item())
-            if value[1]:
+            if value[0] == 'removed':
                 if isinstance(value[1], dict):
-                    lines.append(set_added_child())
+                    lines.append(
+                        TAMPLATE(
+                            set_sign("-"),
+                            key,
+                            generate_view(value[1], shift)
+                        )
+                    )
                 else:
-                    lines.append(set_added_item())
+                    lines.append(
+                        TAMPLATE(
+                            set_sign("-"),
+                            key,
+                            convert_to_json_style(value[1]))
+                    )
+            if value[0] == 'added':
+                if isinstance(value[1], dict):
+                    lines.append(
+                        TAMPLATE(
+                            set_sign("+"),
+                            key,
+                            generate_view(value[1], shift)
+                        )
+                    )
+                else:
+                    lines.append(
+                        TAMPLATE(
+                            set_sign("+"),
+                            key,
+                            convert_to_json_style(value[1]))
+                    )
+            if value[0] == 'modified':
+                if isinstance(value[1], dict):
+                    lines.append(
+                        TAMPLATE(
+                            set_sign("+"),
+                            key,
+                            generate_view(value[1], shift)
+                        )
+                    )
+                else:
+                    lines.append(
+                        TAMPLATE(
+                            set_sign("+"),
+                            key,
+                            convert_to_json_style(value[1]))
+                    )
         else:
-            lines.append(set_unchanged_item())
+            lines.append(
+                TAMPLATE(
+                    set_sign(),
+                    key,
+                    convert_to_json_style(value))
+            )
     lines.append("{}{}".format(indent * FILLER, "}"))
     return "".join(lines)
 
