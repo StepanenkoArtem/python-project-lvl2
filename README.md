@@ -13,3 +13,4 @@ Task #6 asciinema
 [![asciicast](https://asciinema.org/a/sdYRrXTUMLLcvEN2T0boiJEfX.svg)](https://asciinema.org/a/sdYRrXTUMLLcvEN2T0boiJEfX)
 
 Task #7 asciinema
+[![asciicast](https://asciinema.org/a/pbuGboKPDLT5B4LEBFYSuUuZL.svg)](https://asciinema.org/a/pbuGboKPDLT5B4LEBFYSuUuZL)
