@@ -1,3 +1,6 @@
+import json
+
+
 def generate_view(data):
     result = {}
     for key, value in data.items():
@@ -45,4 +48,4 @@ def generate_view(data):
 
 
 def render(internal_diff):
-    return generate_view(internal_diff)
+    return json.dumps(generate_view(internal_diff), indent=4)

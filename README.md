@@ -10,4 +10,6 @@ Task #5 asciinema
 [![asciicast](https://asciinema.org/a/ij4snZT9yj71XmpsMVT6hgQc8.svg)](https://asciinema.org/a/ij4snZT9yj71XmpsMVT6hgQc8)
 
 Task #6 asciinema
-[![asciicast](https://asciinema.org/a/df84tzmLbWxjC23JCXqsyZJaG.svg)](https://asciinema.org/a/df84tzmLbWxjC23JCXqsyZJaG)
+[![asciicast](https://asciinema.org/a/sdYRrXTUMLLcvEN2T0boiJEfX.svg)](https://asciinema.org/a/sdYRrXTUMLLcvEN2T0boiJEfX)
+
+Task #7 asciinema

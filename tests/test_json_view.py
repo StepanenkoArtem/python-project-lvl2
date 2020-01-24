@@ -14,4 +14,4 @@ def test_render():
                 'tests/fixtures/testfiles/after.json'
             )
         )
-    assert expected == checking_data
+    assert expected == json.loads(checking_data)
