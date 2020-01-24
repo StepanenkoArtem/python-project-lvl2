@@ -2,10 +2,12 @@ Property 'common.setting2' was removed
 Property 'common.setting6' was removed
 Property 'common.test_null' was removed
 Property 'common.test_zero' was removed
+Property 'common.test_true' was removed
 Property 'common.add_null' was added with value: 'null'
 Property 'common.add_zero' was added with value: '0'
 Property 'common.setting4' was added with value: 'blah blah'
 Property 'common.setting5' was added with value: 'complex value'
+Property 'common.setting3' was changed. From 'true' to 'false'
 Property 'group1.baz' was changed. From 'bas' to 'bars'
 Property 'group2' was removed
 Property 'group3' was added with value: 'complex value'

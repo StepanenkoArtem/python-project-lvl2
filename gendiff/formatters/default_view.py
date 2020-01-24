@@ -5,10 +5,10 @@ TAMPLATE = '{}{}: {}\n'.format
 BACKSHIFT = 2
 
 
-def convert_to_json_style(value):
+def convert(value):
+    value = 'null' if str(value) == 'None' else value
     value = 'true' if str(value) == 'True' else value
     value = 'false' if str(value) == 'False' else value
-    value = 'null' if str(value) == 'None' else value
     return value
 
 
@@ -40,7 +40,7 @@ def generate_view(data, indent=INITIAL_INDENT):
                     lines.append(TAMPLATE(
                         set_sign("-"),
                         key,
-                        convert_to_json_style(value[1]))
+                        convert(value[1]))
                     )
             if value[0] == 'added':
                 if isinstance(value[1], dict):
@@ -54,7 +54,7 @@ def generate_view(data, indent=INITIAL_INDENT):
                     lines.append(TAMPLATE(
                         set_sign("+"),
                         key,
-                        convert_to_json_style(value[1]))
+                        convert(value[1]))
                     )
             if value[0] == 'modified':
                 if isinstance(value[1][0], dict):
@@ -68,7 +68,7 @@ def generate_view(data, indent=INITIAL_INDENT):
                         TAMPLATE(
                             set_sign("-"),
                             key,
-                            convert_to_json_style(value[1][0]))
+                            convert(value[1][0]))
                     )
                 if isinstance(value[1][1], dict):
                     lines.append(TAMPLATE(
@@ -81,14 +81,14 @@ def generate_view(data, indent=INITIAL_INDENT):
                         TAMPLATE(
                             set_sign("+"),
                             key,
-                            convert_to_json_style(value[1][1]))
+                            convert(value[1][1]))
                     )
         else:
             lines.append(TAMPLATE(
                 set_sign(),
                 key,
-                convert_to_json_style(value))
-        )
+                convert(value))
+            )
     lines.append("{}{}".format(indent * FILLER, "}"))
     return "".join(lines)
 

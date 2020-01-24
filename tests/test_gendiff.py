@@ -5,15 +5,18 @@ import os
 
 def test_generate_diff():
     expected_data = {
-        "first_name": ('modified', ['Sammy', "Artem"]),
-        "last_name": ('modified', ["Shark", "Stepanenko"]),
-        "age": 32,
-        "e-mail": ('added', "artem.stepanenko.ks.ua@gmail.com"),
-        "phone": ('removed', "+380663254548"),
-        "email-account": {
-            "address": "artem@stepanenko.ks.ua",
-            "port": 993,
-            "password": ('modified', ["34656", "4568"])
+        'first_name': ('modified', ['Sammy', 'Artem']),
+        'last_name': ('modified', ['Shark', 'Stepanenko']),
+        'age': 32,
+        'test_null': ('removed', None),
+        'test_true': ('removed', True),
+        'add_false': ('added', False),
+        'e-mail': ('added', 'artem.stepanenko.ks.ua@gmail.com'),
+        'phone': ('removed', '+380663254548'),
+        'email-account': {
+            'address': 'artem@stepanenko.ks.ua',
+            'port': 993,
+            'password': ('modified', ['34656', '4568'])
         }
     }
     checking_data = generate_diff(

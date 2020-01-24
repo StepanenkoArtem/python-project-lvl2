@@ -4,6 +4,15 @@ REMOVED = "Property '{prop}' was removed".format
 ADDED = "Property '{prop}' was added with value: '{value}'".format
 CHANGED = "Property '{prop}' was changed. From '{before}' to '{after}'".format
 
+COMPLEX = "complex value"
+
+
+def convert(value):
+    value = 'null' if str(value) == 'None' else value
+    value = 'true' if str(value) == 'True' else value
+    value = 'false' if str(value) == 'False' else value
+    return value
+
 
 def generate_view():
     result = []
@@ -20,15 +29,15 @@ def generate_view():
                 if value[0] == 'added':
                     if isinstance(value[1], dict):
                         result.append(ADDED(prop=".".join(path),
-                                            value="complex value"))
+                                            value=COMPLEX))
                     else:
                         result.append(ADDED(prop=".".join(path),
-                                            value=value[1]))
+                                            value=convert(value[1])))
                 if value[0] == 'modified':
                     result.append(CHANGED(
                         prop=".".join(path),
-                        before=value[1][0],
-                        after=value[1][1]
+                        before=convert(value[1][0]),
+                        after=convert(value[1][1])
                     ))
             path.pop(-1)
         return "\n".join(result)

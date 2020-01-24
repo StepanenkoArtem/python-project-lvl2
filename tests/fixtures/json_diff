@@ -16,6 +16,10 @@
           "status": "removed",
           "value" : 0
         },
+        "test_true" : {
+          "status": "removed",
+          "value" : true
+        },
         "setting1": {
           "status": "unchanged",
           "value" : "Value 1"
@@ -25,8 +29,9 @@
           "value": 200
         },
         "setting3": {
-          "status": "unchanged",
-          "value": true
+          "status": "modified",
+          "removed value": true,
+          "added value": false
         },
        "setting4": {
          "status": "added",

@@ -1,6 +1,7 @@
 {
   "first_name" : "Artem",
   "last_name" : "Stepanenko",
+  "add_false": false,
   "age": 32,
   "e-mail": "artem.stepanenko.ks.ua@gmail.com",
   "email-account": {

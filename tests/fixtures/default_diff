@@ -4,7 +4,8 @@
       + add_zero: 0
         setting1: Value 1
       - setting2: 200
-        setting3: true
+      - setting3: true
+      + setting3: false
       + setting4: blah blah
       + setting5: {
             key5: value5
@@ -13,6 +14,7 @@
             key: value
         }
       - test_null: null
+      - test_true: true
       - test_zero: 0
     }
     group1: {

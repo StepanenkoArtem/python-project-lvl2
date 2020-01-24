@@ -1,5 +1,7 @@
 {
   "first_name" : "Sammy",
+  "test_true": true,
+  "test_null": null,
   "last_name" : "Shark",
   "age": 32,
   "phone" : "+380663254548",
