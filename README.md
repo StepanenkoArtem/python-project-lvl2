@@ -21,7 +21,7 @@ See asciinema below for more details
 Use 
 	gendiff --help 
 
-to get some more information about using gendiff
+to get some more information about using _gendiff_
 
 
 To get files difference run _gendiff_ with two mandatory parameters: path to first file and path to second file. Both absolute and relative path types are supported.
@@ -34,9 +34,16 @@ By default _gendiff_ returns tree-like result. Removed lines marked by "-" and a
 Modified lines displayed twice. Primary value which has been updated marked by "-"  and value which was added instead marked "+". 
 Unchanged lines remains unmarked.
 
-Task #6 asciinema
-[![asciicast](https://asciinema.org/a/sdYRrXTUMLLcvEN2T0boiJEfX.svg)](https://asciinema.org/a/sdYRrXTUMLLcvEN2T0boiJEfX)
+Use _-f_ flag to change view of result. There are two options avaliable: _-f plain_ and _-f json_
 
-Task #7 asciinema
-[![asciicast](https://asciinema.org/a/pbuGboKPDLT5B4LEBFYSuUuZL.svg)](https://asciinema.org/a/pbuGboKPDLT5B4LEBFYSuUuZL)
+Using
+	gendiff -f plain <path_to_file1> <path_to file2>
+
+[![asciicast](https://asciinema.org/a/9HvipbeoDW9lDgOWaElg61WXx.svg)](https://asciinema.org/a/9HvipbeoDW9lDgOWaElg61WXx)
+
+Using
+	gendiff -f json <path_to_file1> <path_to_file2>
+
+----asciinema will be added later-----
+
 
