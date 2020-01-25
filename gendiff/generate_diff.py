@@ -48,7 +48,7 @@ def recognize_changed_items(before_data, after_data):
                         before_data[key],
                         after_data[key]
                           ]
-                    )
+                          )
                 }
             )
     return changed
