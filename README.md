@@ -10,7 +10,8 @@ Gendiff is tool for generating file difference beetween two files. There are two
 
 Use next 'pip' command to install from http;//test.pypi.org/
 
-	&pip install -i https://test.pypi.org/simple stepanenko-artem-gendiff&
+	`pip install -i https://test.pypi.org/simple stepanenko-artem-gendiff`
+	
 
 Task #3 asciinema
 [![asciicast](https://asciinema.org/a/jP61fqMfyvGu41U94g9mCRRZs.svg)](https://asciinema.org/a/jP61fqMfyvGu41U94g9mCRRZs)
