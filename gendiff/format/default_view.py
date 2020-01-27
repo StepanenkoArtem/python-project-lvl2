@@ -6,9 +6,9 @@ BACKSHIFT = 2
 
 
 def convert(value):
-    value = 'null' if str(value) == 'None' else value
-    value = 'true' if str(value) == 'True' else value
-    value = 'false' if str(value) == 'False' else value
+    value = 'null' if value is None else value
+    value = 'true' if value is True else value
+    value = 'false' if value is False else value
     return value
 
 

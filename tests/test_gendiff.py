@@ -1,24 +1,15 @@
 from gendiff.generate_diff import generate_diff
 import gendiff.parsers as parser
 import os
+import json
+import ast
 
 
 def test_generate_diff():
-    expected_data = {
-        'first_name': ('modified', ['Sammy', 'Artem']),
-        'last_name': ('modified', ['Shark', 'Stepanenko']),
-        'age': 32,
-        'test_null': ('removed', None),
-        'test_true': ('removed', True),
-        'add_false': ('added', False),
-        'e-mail': ('added', 'artem.stepanenko.ks.ua@gmail.com'),
-        'phone': ('removed', '+380663254548'),
-        'email-account': {
-            'address': 'artem@stepanenko.ks.ua',
-            'port': 993,
-            'password': ('modified', ['34656', '4568'])
-        }
-    }
+    fixture = json.load(open('tests/fixtures/internal_diff'))
+    tuplified = repr(fixture).replace("[", '(').replace("]", ")")
+    expected_data = ast.literal_eval(tuplified)
+
     checking_data = generate_diff(
         'tests/fixtures/testfiles/test3.json',
         'tests/fixtures/testfiles/test4.json')

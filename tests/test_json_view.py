@@ -1,7 +1,7 @@
 import os
 import json
 from gendiff.generate_diff import generate_diff
-from gendiff.formatters import json_view
+from gendiff.format import json_view
 
 
 def test_render():

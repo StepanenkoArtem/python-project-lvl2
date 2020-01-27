@@ -17,6 +17,6 @@ def _get_extension(file):
 
 def get_data_from(file):
     path = _get_path(file)
-    if _get_extension(path) == 'yml':
+    if _get_extension(path) in ['yml', 'yaml']:
         return yaml.safe_load(open(path))
     return json.load(open(path))

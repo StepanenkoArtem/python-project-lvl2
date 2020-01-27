@@ -1,6 +1,6 @@
 import os
 from gendiff.generate_diff import generate_diff
-from gendiff.formatters import default_view
+from gendiff.format import default_view
 
 
 def test_render():
