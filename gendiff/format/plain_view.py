@@ -1,17 +1,11 @@
-# Templates
+from gendiff.py_to_json import convert
 
+# Templates
 REMOVED = "Property '{prop}' was removed"
 ADDED = "Property '{prop}' was added with value: '{value}'"
 CHANGED = "Property '{prop}' was changed. From '{before}' to '{after}'"
 
 COMPLEX = "complex value"
-
-
-def convert(value):
-    value = 'null' if value is None else value
-    value = 'true' if value is True else value
-    value = 'false' if value is False else value
-    return value
 
 
 def generate_view():

@@ -1,3 +1,6 @@
+from gendiff.py_to_json import convert
+
+
 INITIAL_INDENT = 0
 DEFAULT_INDENT = 4
 FILLER = ' '
@@ -5,13 +8,6 @@ BACKSHIFT = 2
 
 
 format_line = '{}{}: {}\n'.format
-
-
-def convert(value):
-    value = 'null' if value is None else value
-    value = 'true' if value is True else value
-    value = 'false' if value is False else value
-    return value
 
 
 def generate_view(data, indent=INITIAL_INDENT):
