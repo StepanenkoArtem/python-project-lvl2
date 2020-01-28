@@ -2,57 +2,54 @@ import argparse
 from gendiff import parsers
 from gendiff import format
 
-
 REMOVED = 'removed'
 ADDED = 'added'
 MODIFIED = 'modified'
 
 
-def formatter(name):
-    if name == format.JSON:
+def formatter(arg_format):
+    if arg_format == format.JSON:
         return format.json
-    elif name == format.PLAIN:
+    elif arg_format == format.PLAIN:
         return format.plain
-    elif name == format.DEFAULT:
+    elif arg_format == format.DEFAULT:
         return format.default
     raise argparse.ArgumentTypeError(
-        'Unknown formatter: {}'.format(name)
+            'Unknown formatter: {}'.format(arg_format)
     )
 
 
 parser = argparse.ArgumentParser(
     description='Generate difference between two files'
 )
-parser.add_argument(
-    '-f', '--format',
-    default=format.DEFAULT,
-    choices=format.FORMATTERS,
-    help='set format of output',
-)
 parser.add_argument('first_file')
 parser.add_argument('second_file')
+parser.add_argument(
+    '-f', '--format',
+#   choices=format.FORMATTERS,
+    default=format.DEFAULT,
+    help='set format of output',
+    type=formatter,
+)
 
-option = parser.parse_args()
-render = formatter(option.format)
 
-
-def _recognize_del_items(before_data, after_data):
+def _recognize_del_items(diff, before_data, after_data):
     deleted_items = {}
     deleted_keys = before_data.keys() - after_data.keys()
     for key in deleted_keys:
         deleted_items.update({key: (REMOVED, before_data[key])})
-    return deleted_items
+    return diff.update(deleted_items)
 
 
-def _recognize_add_items(before_data, after_data):
+def _recognize_add_items(diff, before_data, after_data):
     added_items = {}
     added_keys = after_data.keys() - before_data.keys()
     for key in added_keys:
         added_items.update({key: (ADDED, after_data[key])})
-    return added_items
+    return diff.update(added_items)
 
 
-def _recognize_changed_items(before_data, after_data):
+def _recognize_changed_items(diff, before_data, after_data):
     changed = {}
     common_keys = before_data.keys() & after_data.keys()
     for key in common_keys:
@@ -80,17 +77,15 @@ def _recognize_changed_items(before_data, after_data):
                           )
                 }
             )
-    return changed
+    return diff.update(changed)
 
 
 def compare(before_data, after_data):
     internal_diff = {}
-    deleted_items = _recognize_del_items(before_data, after_data)
-    added_items = _recognize_add_items(before_data, after_data)
-    changed_items = _recognize_changed_items(before_data, after_data)
-    internal_diff.update(deleted_items)
-    internal_diff.update(added_items)
-    internal_diff.update(changed_items)
+    for update in (_recognize_add_items,
+                   _recognize_changed_items,
+                   _recognize_del_items):
+        update(internal_diff, before_data, after_data)
     return internal_diff
 
 

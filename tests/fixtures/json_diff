@@ -1,76 +1,21 @@
 {
+    "group2": ["removed",{"abc": 12345}],
+    "group3": ["added", {"fee": 100500}],
     "common": {
-        "add_null": {
-          "status": "added",
-          "value": null
-        },
-        "add_zero": {
-          "status": "added",
-          "value": 0
-        },
-        "test_null": {
-          "status": "removed",
-          "value": null
-        },
-        "test_zero" : {
-          "status": "removed",
-          "value" : 0
-        },
-        "test_true" : {
-          "status": "removed",
-          "value" : true
-        },
-        "setting1": {
-          "status": "unchanged",
-          "value" : "Value 1"
-        },
-        "setting2": {
-          "status": "removed",
-          "value": 200
-        },
-        "setting3": {
-          "status": "modified",
-          "removed value": true,
-          "added value": false
-        },
-       "setting4": {
-         "status": "added",
-         "value" : "blah blah"
-       },
-       "setting5" : {
-         "status": "added",
-        "value" :{
-          "key5": "value5"
-        }
-      },
-        "setting6": {
-          "status": "removed",
-          "value":{
-            "key": "value"
-          }
-        }
+      "test_zero": ["removed", 0],
+        "test_null": ["removed", null],
+        "test_true": ["removed", true],
+        "setting2": ["removed", 200],
+        "setting6": ["removed", {"key": "value"}],
+        "setting5": ["added", {"key5": "value5"}],
+        "setting4": ["added", "blah blah"],
+        "add_null": ["added", null],
+        "add_zero": ["added", 0],
+        "setting3": ["modified", [true, false]],
+        "setting1": "Value 1"
     },
     "group1": {
-        "baz": {
-          "status": "modified",
-          "removed value": "bas",
-          "added value": "bars"
-        },
-        "foo": {
-          "status": "unchanged",
-          "value": "bar"
-        }
-    },
-    "group2": {
-      "status": "removed",
-      "value": {
-        "abc": 12345
-        }
-    },
-    "group3": {
-      "status": "added",
-      "value": {
-        "fee": 100500
-        }
+      "baz": ["modified",["bas", "bars"]],
+      "foo": "bar"
     }
 }

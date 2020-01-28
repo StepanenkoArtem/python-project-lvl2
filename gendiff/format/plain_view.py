@@ -1,16 +1,16 @@
 # Templates
 
-REMOVED = "Property '{prop}' was removed".format
-ADDED = "Property '{prop}' was added with value: '{value}'".format
-CHANGED = "Property '{prop}' was changed. From '{before}' to '{after}'".format
+REMOVED = "Property '{prop}' was removed"
+ADDED = "Property '{prop}' was added with value: '{value}'"
+CHANGED = "Property '{prop}' was changed. From '{before}' to '{after}'"
 
 COMPLEX = "complex value"
 
 
 def convert(value):
-    value = 'null' if str(value) == 'None' else value
-    value = 'true' if str(value) == 'True' else value
-    value = 'false' if str(value) == 'False' else value
+    value = 'null' if value is None else value
+    value = 'true' if value is True else value
+    value = 'false' if value is False else value
     return value
 
 
@@ -25,20 +25,24 @@ def generate_view():
                 inner(value)
             elif isinstance(value, tuple):
                 if value[0] == 'removed':
-                    result.append(REMOVED(prop=".".join(path)))
+                    result.append(REMOVED.format(prop=".".join(path)))
                 if value[0] == 'added':
                     if isinstance(value[1], dict):
-                        result.append(ADDED(prop=".".join(path),
-                                            value=COMPLEX))
+                        result.append(
+                            ADDED.format(prop=".".join(path),
+                                         value=COMPLEX))
                     else:
-                        result.append(ADDED(prop=".".join(path),
-                                            value=convert(value[1])))
+                        result.append(
+                            ADDED.format(prop=".".join(path),
+                                         value=convert(value[1])))
                 if value[0] == 'modified':
-                    result.append(CHANGED(
-                        prop=".".join(path),
-                        before=convert(value[1][0]),
-                        after=convert(value[1][1])
-                    ))
+                    result.append(
+                        CHANGED.format(
+                            prop=".".join(path),
+                            before=convert(value[1][0]),
+                            after=convert(value[1][1])
+                        )
+                    )
             path.pop(-1)
         return "\n".join(result)
     return inner

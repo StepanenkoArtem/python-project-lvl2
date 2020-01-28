@@ -1,5 +1,5 @@
 import os
-from gendiff.generate_diff import generate_diff
+from gendiff.diff import generate_diff
 from gendiff.format import plain_view
 
 

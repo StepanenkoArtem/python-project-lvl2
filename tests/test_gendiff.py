@@ -1,4 +1,4 @@
-from gendiff.generate_diff import generate_diff
+from gendiff.diff import generate_diff
 import gendiff.parsers as parser
 import os
 import json

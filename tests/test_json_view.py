@@ -1,6 +1,6 @@
 import os
 import json
-from gendiff.generate_diff import generate_diff
+from gendiff.diff import generate_diff
 from gendiff.format import json_view
 
 
