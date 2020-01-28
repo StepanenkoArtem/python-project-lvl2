@@ -1,10 +1,7 @@
 import argparse
 from gendiff import parsers
 from gendiff import format
-
-REMOVED = 'removed'
-ADDED = 'added'
-MODIFIED = 'modified'
+from gendiff.status import *
 
 
 def formatter(arg_format):

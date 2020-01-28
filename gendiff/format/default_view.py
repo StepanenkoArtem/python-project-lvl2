@@ -1,91 +1,85 @@
 from gendiff.py_to_json import convert
+from gendiff.status import *
 
-
+# Indentation settings
 INITIAL_INDENT = 0
 DEFAULT_INDENT = 4
 FILLER = ' '
 BACKSHIFT = 2
 
-
-format_line = '{}{}: {}\n'.format
+format_line = '{sign}{key}: {value}\n'.format
 
 
 def generate_view(data, indent=INITIAL_INDENT):
-
-    def set_sign(sign=" "):
-        return '{left_padding}{sign}{right_padding}'.format(
-            left_padding=(shift - BACKSHIFT) * FILLER,
-            sign=sign,
-            right_padding=FILLER
-        )
     lines = ["{\n"]
+
+    def add_line(_value, _sign=" "):
+        left = (shift - BACKSHIFT) * FILLER
+        right = FILLER
+        sign = '{}{}{}'.format(left, _sign, right)
+        line = format_line(
+            sign=sign,
+            key=key,
+            value=_value
+        )
+        return lines.append(line)
+
     for key, value in sorted(data.items()):
         shift = indent + DEFAULT_INDENT
         if isinstance(value, dict):
-            lines.append(
-                format_line(
-                    set_sign(), key, generate_view(value, shift))
+            add_line(
+                _value=generate_view(value, shift),
+                _sign=" "
             )
         elif isinstance(value, tuple):
-            if value[0] == 'removed':
-                if isinstance(value[1], dict):
-                    lines.append(format_line(
-                        set_sign("-"),
-                        key,
-                        generate_view(value[1], shift))
+            status, param = value
+            if status == REMOVED:
+                if isinstance(param, dict):
+                    add_line(
+                        _value=generate_view(param, shift),
+                        _sign="-"
                     )
                 else:
-                    lines.append(format_line(
-                        set_sign("-"),
-                        key,
-                        convert(value[1]))
+                    add_line(
+                        _value=convert(param),
+                        _sign="-"
                     )
-            if value[0] == 'added':
-                if isinstance(value[1], dict):
-                    lines.append(format_line(
-                        set_sign("+"),
-                        key,
-                        generate_view(value[1], shift)
-                        )
+            if status == ADDED:
+                if isinstance(param, dict):
+                    add_line(
+                        _value=generate_view(param, shift),
+                        _sign="+"
                     )
                 else:
-                    lines.append(format_line(
-                        set_sign("+"),
-                        key,
-                        convert(value[1]))
+                    add_line(
+                        _value=convert(param),
+                        _sign="+"
                     )
-            if value[0] == 'modified':
-                if isinstance(value[1][0], dict):
-                    lines.append(format_line(
-                        set_sign("-"),
-                        key,
-                        generate_view(value[1][0], shift))
+            if status == MODIFIED:
+                if isinstance(param[0], dict):
+                    add_line(
+                        _value=generate_view(param[0], shift),
+                        _sign="-"
                     )
                 else:
-                    lines.append(
-                        format_line(
-                            set_sign("-"),
-                            key,
-                            convert(value[1][0]))
+                    add_line(
+                        _value=convert(param[0]),
+                        _sign="-"
                     )
-                if isinstance(value[1][1], dict):
-                    lines.append(format_line(
-                        set_sign("+"),
-                        key,
-                        generate_view(value[1][1], shift))
+                if isinstance(param[1], dict):
+                    add_line(
+                        _value=generate_view(param[1], shift),
+                        _sign="+"
                     )
                 else:
-                    lines.append(
-                        format_line(
-                            set_sign("+"),
-                            key,
-                            convert(value[1][1]))
+                    add_line(
+                        _value=convert(param[1]),
+                        _sign="+"
                     )
         else:
-            lines.append(format_line(
-                set_sign(),
-                key,
-                convert(value))
+            add_line(
+                _value=convert(value),
+                _sign=" "
             )
     lines.append("{}{}".format(indent * FILLER, "}"))
     return "".join(lines)
