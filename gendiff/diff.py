@@ -1,7 +1,7 @@
 import argparse
 from gendiff import parsers
 from gendiff import format
-from gendiff.status import *
+from gendiff import status
 
 
 def formatter(arg_format):
@@ -34,7 +34,7 @@ def _recognize_del_items(diff, before_data, after_data):
     deleted_items = {}
     deleted_keys = before_data.keys() - after_data.keys()
     for key in deleted_keys:
-        deleted_items.update({key: (REMOVED, before_data[key])})
+        deleted_items.update({key: (status.REMOVED, before_data[key])})
     return diff.update(deleted_items)
 
 
@@ -42,7 +42,7 @@ def _recognize_add_items(diff, before_data, after_data):
     added_items = {}
     added_keys = after_data.keys() - before_data.keys()
     for key in added_keys:
-        added_items.update({key: (ADDED, after_data[key])})
+        added_items.update({key: (status.ADDED, after_data[key])})
     return diff.update(added_items)
 
 
@@ -50,30 +50,24 @@ def _recognize_changed_items(diff, before_data, after_data):
     changed = {}
     common_keys = before_data.keys() & after_data.keys()
     for key in common_keys:
+        item_before = before_data[key]
+        item_after = after_data[key]
         if (
-            isinstance(before_data[key], dict) &
-            isinstance(after_data[key], dict)
+            isinstance(item_before, dict) &
+            isinstance(item_after, dict)
         ):
-            changed.update(
-                {
-                    key: compare(
-                        before_data[key],
-                        after_data[key]
-                    )
-                }
+            compared = compare(
+                 item_before,
+                 item_after
             )
-        elif before_data[key] == after_data[key]:
-            changed.update({key: before_data[key]})
+        elif item_before == item_after:
+            compared = item_before
         else:
-            changed.update(
-                {
-                    key: (MODIFIED, (
-                        before_data[key],
-                        after_data[key]
-                          )
-                          )
-                }
-            )
+            compared = (status.MODIFIED, (
+                item_before,
+                item_after)
+                    )
+        changed[key] = compared
     return diff.update(changed)
 
 
