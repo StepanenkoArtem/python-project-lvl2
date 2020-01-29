@@ -1,9 +1,10 @@
 from gendiff.py_to_json import convert
-from gendiff import status
+from gendiff.status import *
 
-REMOVED = "Property '{prop}' was removed"
-ADDED = "Property '{prop}' was added with value: '{value}'"
-MODIFIED = "Property '{prop}' was changed. From '{before}' to '{after}'"
+# Line Templates
+REMOVED_LINE = "Property '{prop}' was removed"
+ADDED_LINE = "Property '{prop}' was added with value: '{value}'"
+MODIFIED_LINE = "Property '{prop}' was changed. From '{before}' to '{after}'"
 COMPLEX = "complex value"
 
 
@@ -11,34 +12,42 @@ def generate_view():
     result = []
     path = []
 
+    def append_removed_line():
+        result.append(REMOVED_LINE.format(prop=".".join(path)))
+
+    def append_added_line(line):
+        result.append(
+            ADDED_LINE.format(
+                prop=".".join(path),
+                value=line))
+
+    def append_mofified_line(value_before, value_after):
+        result.append(
+            MODIFIED_LINE.format(
+                prop=".".join(path),
+                before=convert(value_before),
+                after=convert(value_after)
+            )
+        )
+
     def inner(data):
-        for key, value in data.items():
+        for key, param in data.items():
             path.append(key)
-            if isinstance(value, dict):
-                inner(value)
-            elif isinstance(value, tuple):
-                if value[0] == status.REMOVED:
-                    result.append(
-                        REMOVED.format(
-                            prop=".".join(path)))
-                if value[0] == status.ADDED:
-                    if isinstance(value[1], dict):
-                        result.append(
-                            ADDED.format(
-                                prop=".".join(path),
-                                value=COMPLEX))
+            if isinstance(param, dict):
+                inner(param)
+            elif isinstance(param, tuple):
+                status, value = param
+                if status == REMOVED:
+                    append_removed_line()
+                if status == ADDED:
+                    if isinstance(value, dict):
+                        append_added_line(COMPLEX)
                     else:
-                        result.append(
-                            ADDED.format(
-                                prop=".".join(path),
-                                value=convert(value[1])))
-                if value[0] == status.MODIFIED:
-                    result.append(
-                        MODIFIED.format(
-                            prop=".".join(path),
-                            before=convert(value[1][0]),
-                            after=convert(value[1][1])
-                        )
+                        append_added_line(convert(value))
+                if status == MODIFIED:
+                    append_mofified_line(
+                        value_before=value[0],
+                        value_after=value[1]
                     )
             path.pop(-1)
         return "\n".join(result)
