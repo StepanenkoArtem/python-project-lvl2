@@ -14,8 +14,12 @@ _ADD_SIGN = '+'
 _REM_SIGN = '-'
 
 
+
 def generate_view(data, indent=_INITIAL_INDENT):
-    lines = ["{\n"]
+    begin_wrapper = "{\n"
+    end_wrapper = "{}{}".format(indent * _FILLER, "}")
+
+    lines = [begin_wrapper]
 
     def format_line(_value, sign=" "):
         formatted_sign = '{left}{sign}{right}'.format(
@@ -51,7 +55,7 @@ def generate_view(data, indent=_INITIAL_INDENT):
                 add_line(value[1], _ADD_SIGN)
         else:
             format_line(convert(param))
-    lines.append("{}{}".format(indent * _FILLER, "}"))
+    lines.append(end_wrapper)
     return "".join(lines)
 
 
