@@ -1,7 +1,7 @@
 import argparse
 from gendiff import parsers
 from gendiff import format
-from gendiff import status
+from gendiff.status import *
 
 
 def formatter(arg_format):
@@ -30,23 +30,23 @@ parser.add_argument(
 )
 
 
-def _recognize_del_items(diff, before_data, after_data):
-    deleted_items = {}
-    deleted_keys = before_data.keys() - after_data.keys()
-    for key in deleted_keys:
-        deleted_items.update({key: (status.REMOVED, before_data[key])})
-    return diff.update(deleted_items)
+def _get_removed_items(diff, before_data, after_data):
+    removed_items = {}
+    removed_keys = before_data.keys() - after_data.keys()
+    for key in removed_keys:
+        removed_items.update({key: (REMOVED, before_data[key])})
+    return diff.update(removed_items)
 
 
-def _recognize_add_items(diff, before_data, after_data):
+def _get_added_items(diff, before_data, after_data):
     added_items = {}
     added_keys = after_data.keys() - before_data.keys()
     for key in added_keys:
-        added_items.update({key: (status.ADDED, after_data[key])})
+        added_items.update({key: (ADDED, after_data[key])})
     return diff.update(added_items)
 
 
-def _recognize_changed_items(diff, before_data, after_data):
+def _get_modified_items(diff, before_data, after_data):
     changed = {}
     common_keys = before_data.keys() & after_data.keys()
     for key in common_keys:
@@ -63,7 +63,7 @@ def _recognize_changed_items(diff, before_data, after_data):
         elif item_before == item_after:
             compared = item_before
         else:
-            compared = (status.MODIFIED, (
+            compared = (MODIFIED, (
                 item_before,
                 item_after)
                     )
@@ -73,9 +73,9 @@ def _recognize_changed_items(diff, before_data, after_data):
 
 def compare(before_data, after_data):
     internal_diff = {}
-    for update in (_recognize_add_items,
-                   _recognize_changed_items,
-                   _recognize_del_items):
+    for update in (_get_added_items,
+                   _get_modified_items,
+                   _get_removed_items):
         update(internal_diff, before_data, after_data)
     return internal_diff
 

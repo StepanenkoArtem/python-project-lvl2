@@ -12,7 +12,23 @@ def generate_view():
     result = []
     path = []
 
+    def append_removed_line():
+        result.append(REMOVED_LINE.format(prop=".".join(path)))
 
+    def append_added_line(line):
+        result.append(
+            ADDED_LINE.format(
+                prop=".".join(path),
+                value=line))
+
+    def append_modified_line(value_before, value_after):
+        result.append(
+            MODIFIED_LINE.format(
+                prop=".".join(path),
+                before=convert(value_before),
+                after=convert(value_after)
+            )
+        )
 
     def inner(data):
         for key, param in data.items():
@@ -29,7 +45,7 @@ def generate_view():
                     else:
                         append_added_line(convert(value))
                 if status == MODIFIED:
-                    append_mofified_line(
+                    append_modified_line(
                         value_before=value[0],
                         value_after=value[1]
                     )

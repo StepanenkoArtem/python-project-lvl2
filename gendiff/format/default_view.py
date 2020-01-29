@@ -47,10 +47,8 @@ def generate_view(data, indent=_INITIAL_INDENT):
             if status == ADDED:
                 add_line(value, _ADD_SIGN)
             if status == MODIFIED:
-                value_before = value[0]
-                value_after = value[1]
-                add_line(value_before, _REM_SIGN)
-                add_line(value_after, _ADD_SIGN)
+                add_line(value[0], _REM_SIGN)
+                add_line(value[1], _ADD_SIGN)
         else:
             format_line(convert(param))
     lines.append("{}{}".format(indent * _FILLER, "}"))
