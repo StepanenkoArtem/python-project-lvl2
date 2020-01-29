@@ -37,7 +37,7 @@ def generate_view(data, indent=_INITIAL_INDENT):
         else:
             format_line(convert(_value), sign)
 
-    def group_lines(_value):
+    def set_sign_for_lines(_value):
         status, param = _value
         if status == REMOVED:
             add_line(param, _REM_SIGN)
@@ -52,7 +52,7 @@ def generate_view(data, indent=_INITIAL_INDENT):
         if isinstance(value, dict):
             format_line(generate_view(value, shift))
         elif isinstance(value, tuple):
-            group_lines(value)
+            set_sign_for_lines(value)
         else:
             format_line(convert(value))
     lines.append(end_wrapper)
