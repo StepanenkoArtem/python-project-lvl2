@@ -7,57 +7,52 @@ _DEFAULT_INDENT = 4
 _FILLER = ' '
 _BACKSHIFT = 2
 
+_LINE_TEMPLATE = '{sign}{key}: {value}\n'
+
 # Tokens
-_ADD = '+'
-_REM = '-'
+_ADD_SIGN = '+'
+_REM_SIGN = '-'
 
 
 def generate_view(data, indent=_INITIAL_INDENT):
-    format_line = '{sign}{key}: {value}\n'.format
     lines = ["{\n"]
 
-    def add_line(_value, sign=" "):
-        left = (shift - _BACKSHIFT) * _FILLER
-        right = _FILLER
-        formatted_sign = '{}{}{}'.format(left, sign, right)
-        line = format_line(
+    def format_line(_value, sign=" "):
+        formatted_sign = '{left}{sign}{right}'.format(
+            left=(shift - _BACKSHIFT) * _FILLER,
+            sign=sign,
+            right=_FILLER
+        )
+        line = _LINE_TEMPLATE.format(
             sign=formatted_sign,
             key=key,
             value=_value
         )
         return lines.append(line)
 
+    def add_line(_value, sign):
+        if isinstance(value, dict):
+            format_line(generate_view(_value, shift), sign)
+        else:
+            format_line(convert(_value), sign)
+
     for key, param in sorted(data.items()):
         shift = indent + _DEFAULT_INDENT
         if isinstance(param, dict):
-            add_line(generate_view(param, shift))
+            format_line(generate_view(param, shift))
         elif isinstance(param, tuple):
             status, value = param
             if status == REMOVED:
-                if isinstance(value, dict):
-                    add_line(generate_view(value, shift), _REM)
-                else:
-                    add_line(convert(value), _REM)
+                add_line(value, _REM_SIGN)
             if status == ADDED:
-                if isinstance(value, dict):
-                    add_line(generate_view(value, shift), _ADD)
-                else:
-                    add_line(convert(value), _ADD)
+                add_line(value, _ADD_SIGN)
             if status == MODIFIED:
                 value_before = value[0]
                 value_after = value[1]
-                if isinstance(value_before, dict):
-                    add_line(generate_view(value_before, shift), _REM)
-                else:
-                    add_line(convert(value_before), _REM)
-                if isinstance(value_after, dict):
-                    add_line(generate_view(value_after, shift), _ADD)
-                else:
-                    add_line(convert(value_after), _ADD)
+                add_line(value_before, _REM_SIGN)
+                add_line(value_after, _ADD_SIGN)
         else:
-            add_line(
-                _value=convert(param)
-            )
+            format_line(convert(param))
     lines.append("{}{}".format(indent * _FILLER, "}"))
     return "".join(lines)
 
