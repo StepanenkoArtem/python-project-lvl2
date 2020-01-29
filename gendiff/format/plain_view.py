@@ -30,25 +30,28 @@ def generate_view():
             )
         )
 
+    def tuplied(param):
+        status, value = param
+        if status == REMOVED:
+            append_removed_line()
+        if status == ADDED:
+            if isinstance(value, dict):
+                append_added_line(COMPLEX)
+            else:
+                append_added_line(convert(value))
+        if status == MODIFIED:
+            append_modified_line(
+                value_before=value[0],
+                value_after=value[1]
+            )
+
     def inner(data):
         for key, param in data.items():
             path.append(key)
             if isinstance(param, dict):
                 inner(param)
             elif isinstance(param, tuple):
-                status, value = param
-                if status == REMOVED:
-                    append_removed_line()
-                if status == ADDED:
-                    if isinstance(value, dict):
-                        append_added_line(COMPLEX)
-                    else:
-                        append_added_line(convert(value))
-                if status == MODIFIED:
-                    append_modified_line(
-                        value_before=value[0],
-                        value_after=value[1]
-                    )
+                tuplied(param)
             path.pop(-1)
         return "\n".join(result)
     return inner
