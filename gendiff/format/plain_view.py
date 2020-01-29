@@ -30,7 +30,7 @@ def generate_view():
             )
         )
 
-    def tuplied(param):
+    def format_lines(param):
         status, value = param
         if status == REMOVED:
             append_removed_line()
@@ -51,7 +51,7 @@ def generate_view():
             if isinstance(param, dict):
                 inner(param)
             elif isinstance(param, tuple):
-                tuplied(param)
+                format_lines(param)
             path.pop(-1)
         return "\n".join(result)
     return inner

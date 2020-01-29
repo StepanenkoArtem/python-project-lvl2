@@ -14,12 +14,9 @@ _ADD_SIGN = '+'
 _REM_SIGN = '-'
 
 
-
 def generate_view(data, indent=_INITIAL_INDENT):
-    begin_wrapper = "{\n"
+    lines = ["{\n"]
     end_wrapper = "{}{}".format(indent * _FILLER, "}")
-
-    lines = [begin_wrapper]
 
     def format_line(_value, sign=" "):
         formatted_sign = '{left}{sign}{right}'.format(
@@ -35,26 +32,29 @@ def generate_view(data, indent=_INITIAL_INDENT):
         return lines.append(line)
 
     def add_line(_value, sign):
-        if isinstance(value, dict):
+        if isinstance(_value, dict):
             format_line(generate_view(_value, shift), sign)
         else:
             format_line(convert(_value), sign)
 
-    for key, param in sorted(data.items()):
+    def group_lines(_value):
+        status, param = _value
+        if status == REMOVED:
+            add_line(param, _REM_SIGN)
+        if status == ADDED:
+            add_line(param, _ADD_SIGN)
+        if status == MODIFIED:
+            add_line(param[0], _REM_SIGN)
+            add_line(param[1], _ADD_SIGN)
+
+    for key, value in sorted(data.items()):
         shift = indent + _DEFAULT_INDENT
-        if isinstance(param, dict):
-            format_line(generate_view(param, shift))
-        elif isinstance(param, tuple):
-            status, value = param
-            if status == REMOVED:
-                add_line(value, _REM_SIGN)
-            if status == ADDED:
-                add_line(value, _ADD_SIGN)
-            if status == MODIFIED:
-                add_line(value[0], _REM_SIGN)
-                add_line(value[1], _ADD_SIGN)
+        if isinstance(value, dict):
+            format_line(generate_view(value, shift))
+        elif isinstance(value, tuple):
+            group_lines(value)
         else:
-            format_line(convert(param))
+            format_line(convert(value))
     lines.append(end_wrapper)
     return "".join(lines)
 
