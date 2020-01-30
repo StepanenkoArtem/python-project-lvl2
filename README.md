@@ -44,6 +44,6 @@ Using
 Using
 	gendiff -f json <path_to_file1> <path_to_file2>
 
-----asciinema will be added later-----
+[![asciicast](https://asciinema.org/a/9JBW4CGlKxx4F4euQoNixORb6.svg)](https://asciinema.org/a/9JBW4CGlKxx4F4euQoNixORb6)
 
 
