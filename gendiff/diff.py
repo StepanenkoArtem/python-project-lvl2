@@ -1,37 +1,6 @@
-import argparse
+
 from gendiff import parsers
-from gendiff import format
-
-
-# Avaliable Statuses
-REMOVED = 'removed'
-ADDED = 'added'
-MODIFIED = 'modified'
-
-
-def formatter(arg_format):
-    if arg_format == format.JSON:
-        return format.json
-    elif arg_format == format.PLAIN:
-        return format.plain
-    elif arg_format == format.DEFAULT:
-        return format.default
-    raise argparse.ArgumentTypeError(
-            'Unknown formatter: {}'.format(arg_format)
-    )
-
-
-parser = argparse.ArgumentParser(
-    description='Generate difference between two files'
-)
-parser.add_argument('first_file')
-parser.add_argument('second_file')
-parser.add_argument(
-    '-f', '--format',
-    default=format.DEFAULT,
-    help='set format of output',
-    type=formatter,
-)
+from gendiff import status_list
 
 
 def _get_diff_items(minuend, subtrahend, status):
@@ -59,7 +28,7 @@ def _get_modified_items(before_data, after_data):
         elif item_before == item_after:
             compared = item_before
         else:
-            compared = (MODIFIED, (
+            compared = (status_list.MODIFIED, (
                 item_before,
                 item_after)
                     )
@@ -69,8 +38,10 @@ def _get_modified_items(before_data, after_data):
 
 def compare(before_data, after_data):
     internal_diff = {}
-    internal_diff.update(_get_diff_items(before_data, after_data, REMOVED))
-    internal_diff.update(_get_diff_items(after_data, before_data, ADDED))
+    internal_diff.update(
+        _get_diff_items(before_data, after_data, status_list.REMOVED))
+    internal_diff.update(
+        _get_diff_items(after_data, before_data, status_list.ADDED))
     internal_diff.update(_get_modified_items(before_data, after_data))
     return internal_diff
 

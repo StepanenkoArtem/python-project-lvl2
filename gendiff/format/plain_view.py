@@ -1,5 +1,6 @@
 from gendiff.py_to_json import convert
-from gendiff.diff import ADDED, REMOVED, MODIFIED
+from gendiff.status_list import REMOVED, ADDED, MODIFIED
+
 
 # Line Templates
 REMOVED_LINE = "Property '{prop}' was removed"

@@ -1,5 +1,6 @@
 from gendiff.py_to_json import convert
-from gendiff.diff import ADDED, REMOVED, MODIFIED
+from gendiff import status_list
+
 
 # Indentation settings
 _INITIAL_INDENT = 0
@@ -39,11 +40,11 @@ def generate_view(data, indent=_INITIAL_INDENT):
 
     def set_sign_for_lines(_value):
         status, param = _value
-        if status == REMOVED:
+        if status == status_list.REMOVED:
             add_line(param, _REM_SIGN)
-        if status == ADDED:
+        if status == status_list.ADDED:
             add_line(param, _ADD_SIGN)
-        if status == MODIFIED:
+        if status == status_list.MODIFIED:
             add_line(param[0], _REM_SIGN)
             add_line(param[1], _ADD_SIGN)
 
