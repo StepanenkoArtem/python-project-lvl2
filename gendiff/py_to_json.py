@@ -1,5 +1,8 @@
 def convert(value):
-    value = 'null' if value is None else value
-    value = 'true' if value is True else value
-    value = 'false' if value is False else value
+    if value is None:
+        return 'null'
+    elif value is True:
+        return 'true'
+    elif value is False:
+        return 'false'
     return value

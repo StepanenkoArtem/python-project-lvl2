@@ -1,5 +1,5 @@
 from gendiff.py_to_json import convert
-from gendiff.status import *
+from gendiff.diff import ADDED, REMOVED, MODIFIED
 
 # Line Templates
 REMOVED_LINE = "Property '{prop}' was removed"
@@ -57,5 +57,4 @@ def generate_view():
     return inner
 
 
-def render(internal_diff):
-    return generate_view()(internal_diff)
+render = generate_view()

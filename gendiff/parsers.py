@@ -11,6 +11,8 @@ def _get_path(path):
 
 def get_data_from(file):
     path = _get_path(file)
-    if os.path.splitext(file)[-1] in ['.yml', '.yaml']:
+    _, ext = os.path.splitext(file)
+    if ext in {'.yml', '.yaml'}:
         return yaml.safe_load(open(path))
-    return json.load(open(path))
+    elif ext in {'.json', 'jsn'}:
+        return json.load(open(path))

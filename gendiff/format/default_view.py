@@ -1,5 +1,5 @@
 from gendiff.py_to_json import convert
-from gendiff.status import *
+from gendiff.diff import ADDED, REMOVED, MODIFIED
 
 # Indentation settings
 _INITIAL_INDENT = 0
